@@ -11,16 +11,6 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-header {
-  height: 60px;
-  padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
-  background: #fafafa;
-}
-
 main {
   max-width: 850px;
   margin: 0 auto;
