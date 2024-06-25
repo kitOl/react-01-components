@@ -2,25 +2,40 @@ import { useState } from "react";
 import Button from "./Button/Button";
 
 export default function FeedbackSection() {
-  const [name, setName] = useState("");
-  const [hasError, setHasError] = useState(true);
-  const [reason, setReason] = useState("help");
+  const [form, setForm] = useState({
+    name: "",
+    hasError: true,
+    reason: "help",
+  });
+  // const [name, setName] = useState("");
+  // const [hasError, setHasError] = useState(true);
+  // const [reason, setReason] = useState("help");
 
   function handleNameCnange(e) {
-    setName(e.target.value);
-    setHasError(e.target.value.trim().length === 0);
+    setForm((prev) => ({
+      ...prev,
+      name: e.target.value,
+      hasError: e.target.value.trim().length === 0,
+    }));
+    // setName();
+    // setHasError();
+
+    // setForm({
+    //   name: e.target.value,
+    //   hasError: e.target.value.trim().length === 0,
+    // });
   }
 
-  function toggleError() {
-    // setHasError(!hasError);
-    setHasError((prev) => !prev);
-  }
+  // function toggleError() {
+  // setHasError(!hasError);
+  // setHasError((prev) => !prev);
+  // }
 
   return (
     <section>
       <h3>Обратная связь</h3>
 
-      <Button onClick={toggleError}>Toggle error</Button>
+      {/* <Button onClick={toggleError}>Toggle error</Button> */}
 
       <form>
         <label htmlFor="name">Ваше имя</label>
@@ -28,8 +43,8 @@ export default function FeedbackSection() {
           type="text"
           id="name"
           className="control"
-          value={name}
-          style={{ border: hasError ? "1px solid red" : null }}
+          value={form.name}
+          style={{ border: form.hasError ? "1px solid red" : null }}
           onChange={handleNameCnange}
         />
 
@@ -37,22 +52,26 @@ export default function FeedbackSection() {
         <select
           id="reason"
           className="control"
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
+          value={form.reason}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, reason: e.target.value }))
+          }
+          // onChange={(e) => setReason(e.target.value)}
         >
           <option value="error">Ошибка</option>
           <option value="help">Нужна помощь</option>
           <option value="suggest">Предложение</option>
         </select>
-        <Button disabled={hasError} isActive={!hasError}>
+        <Button disabled={form.hasError} isActive={!form.hasError}>
           Отправить
         </Button>
       </form>
 
       <pre>
-        Name: {name}
+        {JSON.stringify(form, null, 2)}
+        {/* Name: {form.name}
         <br />
-        Reason: {reason}
+        Reason: {form.reason} */}
       </pre>
     </section>
   );
